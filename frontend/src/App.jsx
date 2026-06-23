@@ -10,24 +10,35 @@ function App() {
   const [cursor, setCursor] = useState("");
 
   async function loadProducts(reset = false) {
-    try {
-      const result = await getProducts(
-        20,
-        category,
-        reset ? "" : cursor
-      );
+  try {
+    console.log("Reset:", reset);
+    console.log("Current Cursor:", cursor);
 
-      if (reset) {
-        setProducts(result.data);
-      } else {
-        setProducts((prev) => [...prev, ...result.data]);
-      }
+    const result = await getProducts(
+      20,
+      category,
+      reset ? "" : cursor
+    );
 
-      setCursor(result.nextCursor);
-    } catch (error) {
-      console.error(error);
+    console.log("Received:", result.data.length);
+    console.log("Next Cursor:", result.nextCursor);
+
+    if (reset) {
+      setProducts(result.data);
+    } else {
+      setProducts((prev) => {
+        console.log("Previous Length:", prev.length);
+        console.log("New Length:", prev.length + result.data.length);
+
+        return [...prev, ...result.data];
+      });
     }
+
+    setCursor(result.nextCursor);
+  } catch (error) {
+    console.error(error);
   }
+}
 
   useEffect(() => {
     loadProducts(true);

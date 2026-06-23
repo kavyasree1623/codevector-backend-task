@@ -1,6 +1,6 @@
 function Pagination({ loadMore }) {
   return (
-    <button onClick={loadMore}>
+    <button onClick={() => loadMore(false)}>
       Load More
     </button>
   );
