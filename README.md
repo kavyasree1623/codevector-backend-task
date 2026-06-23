@@ -1,79 +1,105 @@
-# CodeVector Backend Engineering Task
+# 🚀 CodeVector Product Browser
 
-## Overview
+A scalable product browsing system built for the **CodeVector Backend Engineering Internship Task**.
 
-This project is a scalable product browsing API built for the CodeVector Backend Engineering Internship Task using Node.js, Express.js, PostgreSQL, and Neon Database.
-
-The API efficiently handles a dataset of **200,000+ products** using **cursor-based pagination**, ensuring fast and scalable performance while supporting category-based filtering.
+The project demonstrates efficient handling of **200,000+ products** using **cursor-based pagination**, category filtering, PostgreSQL indexing, and cloud deployment.
 
 ---
 
-## Live Deployment
+## 🌐 Live Demo
 
-**Base URL**
+### Frontend
+
+https://codevector-backend-task.vercel.app/
+
+### Backend API
 
 https://codevector-backend-task-u2hy.onrender.com
 
-**Example Request**
+### GitHub Repository
 
-```http
-GET https://codevector-backend-task-u2hy.onrender.com/products?limit=10
-```
+https://github.com/kavyasree1623/codevector-backend-task
 
 ---
 
-## Repository
+## 📌 Project Overview
 
-GitHub Repository:
+This application provides a scalable product catalog system capable of handling large datasets while maintaining fast response times.
+
+Key goals achieved:
+
+* Efficient browsing of 200,000+ products
+* Cursor-based pagination
+* Category filtering
+* PostgreSQL database optimization
+* Cloud deployment
+* React frontend integration
+
+---
+
+## 🏗️ System Architecture
 
 ```text
-https://github.com/kavyasree1623/codevector-backend-task
+React Frontend (Vercel)
+          │
+          ▼
+Express.js API (Render)
+          │
+          ▼
+PostgreSQL Database (Neon)
 ```
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
+
+### Frontend
+
+* React.js
+* Vite
+* JavaScript
+
+### Backend
 
 * Node.js
 * Express.js
+
+### Database
+
 * PostgreSQL
 * Neon Database
-* Render (Deployment)
+
+### Deployment
+
+* Vercel (Frontend)
+* Render (Backend)
 
 ---
 
-## Features
+## ✨ Features
 
-* 200,000+ seeded product records
-* Cursor-based pagination
+### Product Browsing
+
+* View products with pagination
+* Load additional products dynamically
+* Category-based filtering
+
+### Scalability
+
+* Handles 200,000+ product records
+* Cursor-based pagination for efficient navigation
+* Indexed queries for fast retrieval
+
+### API Features
+
+* Product listing endpoint
+* Cursor pagination support
 * Category filtering
-* Newest products returned first
-* Product count included in response
-* Next cursor returned for pagination
-* Indexed database queries for improved performance
-* Cloud-hosted PostgreSQL database using Neon
-* Public deployment on Render
+* Structured JSON responses
 
 ---
 
-## Architecture
-
-```text
-Client Request
-       │
-       ▼
-Express.js API
-       │
-       ▼
-PostgreSQL (Neon)
-       │
-       ▼
-Render Deployment
-```
-
----
-
-## Database Schema
+## 🗄️ Database Schema
 
 ### Products Table
 
@@ -88,19 +114,126 @@ Render Deployment
 
 ---
 
-## Setup Instructions
+## 📡 API Documentation
+
+### Get Products
+
+```http
+GET /products
+```
+
+### Query Parameters
+
+| Parameter | Description                        |
+| --------- | ---------------------------------- |
+| limit     | Number of records to fetch         |
+| cursor    | Last product ID from previous page |
+| category  | Filter products by category        |
+
+---
+
+### Example Requests
+
+#### First Page
+
+```http
+GET /products?limit=20
+```
+
+#### Next Page
+
+```http
+GET /products?limit=20&cursor=199981
+```
+
+#### Filter by Category
+
+```http
+GET /products?category=Sports&limit=20
+```
+
+#### Filter + Pagination
+
+```http
+GET /products?category=Beauty&limit=20&cursor=199981
+```
+
+---
+
+## 📦 Example Response
+
+```json
+{
+  "count": 20,
+  "nextCursor": 199981,
+  "data": [
+    {
+      "id": 200000,
+      "name": "Sample Product",
+      "category": "Sports",
+      "price": 199.99
+    }
+  ]
+}
+```
+
+---
+
+## 🎯 Available Categories
+
+* Beauty
+* Sports
+* Books
+* Clothing
+* Home
+* Automotive
+
+---
+
+## ⚡ Why Cursor-Based Pagination?
+
+Traditional OFFSET pagination becomes slower as data volume grows.
+
+Cursor-based pagination was chosen because it:
+
+* Provides consistent performance at scale
+* Avoids skipped or duplicated records
+* Handles data updates more reliably
+* Reduces database workload
+* Scales efficiently with large datasets
+
+---
+
+## 📈 Performance Optimizations
+
+* Indexed primary key lookups
+* Indexed category filtering
+* Cursor-based pagination
+* Optimized PostgreSQL queries
+* Bulk data seeding
+* Cloud-hosted Neon database
+
+---
+
+## 🚀 Local Setup
 
 ### Clone Repository
 
 ```bash
 git clone https://github.com/kavyasree1623/codevector-backend-task.git
-
-cd codevector-backend-task
+cd codevector-task
 ```
 
-### Install Dependencies
+### Install Backend Dependencies
 
 ```bash
+npm install
+```
+
+### Install Frontend Dependencies
+
+```bash
+cd frontend
 npm install
 ```
 
@@ -113,169 +246,58 @@ DATABASE_URL=your_neon_database_url
 PORT=3000
 ```
 
-### Run Server
+### Run Backend
 
 ```bash
-node server.js
+npm start
 ```
 
-Server will run at:
+### Run Frontend
 
-```text
-http://localhost:3000
+```bash
+cd frontend
+npm run dev
 ```
 
 ---
 
-## Generate Sample Data
+## 🌱 Seed Database
 
-Run:
+Generate and insert 200,000+ products:
 
 ```bash
 node seed.js
 ```
 
-This script generates and inserts approximately **200,000 products** into PostgreSQL.
-
 ---
 
-## API Documentation
+## 🔮 Future Improvements
 
-### Get Products
-
-```http
-GET /products
-```
-
-### Query Parameters
-
-| Parameter | Description                            |
-| --------- | -------------------------------------- |
-| limit     | Number of products per page            |
-| cursor    | Last product ID from previous response |
-| category  | Filter products by category            |
-
----
-
-## Available Categories
-
-* Beauty
-* Sports
-* Clothing
-* Books
-* Automotive
-* Home
-
----
-
-## Example Requests
-
-### First Page
-
-```http
-GET /products?limit=10
-```
-
-### Next Page Using Cursor
-
-```http
-GET /products?limit=10&cursor=199992
-```
-
-### Filter By Category
-
-```http
-GET /products?category=Sports&limit=10
-```
-
-### Filter + Pagination
-
-```http
-GET /products?category=Beauty&limit=10&cursor=199992
-```
-
----
-
-## Example Response
-
-```json
-{
-  "count": 10,
-  "nextCursor": "199992",
-  "data": [
-    {
-      "id": 200001,
-      "name": "Sample Product",
-      "category": "Sports",
-      "price": 199.99
-    }
-  ]
-}
-```
-
----
-
-## Response Fields
-
-| Field      | Description                 |
-| ---------- | --------------------------- |
-| count      | Number of products returned |
-| nextCursor | Cursor for the next page    |
-| data       | Array of product objects    |
-
----
-
-## Why Cursor-Based Pagination?
-
-Cursor-based pagination was chosen because it is more efficient than OFFSET-based pagination for large datasets.
-
-Benefits include:
-
-* Faster query execution on large tables
-* Better scalability with 200,000+ records
-* Prevents skipped or duplicated records
-* Consistent pagination when data changes
-* Reduced database load
-
----
-
-## Performance Optimizations
-
-* Indexed primary key lookups
-* Indexed category filtering
-* Cursor-based pagination
-* Optimized SQL queries
-* Efficient bulk product seeding
-* PostgreSQL hosted on Neon
-
----
-
-## Future Improvements
-
-* Composite cursor pagination (`updated_at`, `id`)
-* Automated unit and integration testing
+* Infinite scrolling
+* Composite cursor pagination
 * Redis caching
-* Rate limiting and request throttling
-* Structured logging and monitoring
-* Docker containerization
+* Automated testing
+* Docker support
+* API rate limiting
+* Monitoring and logging
 
 ---
 
-## AI Usage
+## 🤖 AI Usage
 
-AI tools were used to:
+AI tools were used for:
 
-* Review implementation approaches
-* Validate pagination strategy
-* Assist with debugging and troubleshooting
+* Architecture validation
+* Pagination strategy review
+* Debugging assistance
+* Documentation refinement
 
-All generated code was reviewed, tested, and modified where necessary before use.
+All implementation decisions were reviewed, tested, and validated manually.
 
 ---
 
-## Author
+## 👩‍💻 Author
 
-**Kavya Sree**
+Kavya Sree
 
-GitHub:
-https://github.com/kavyasree1623
+GitHub: https://github.com/kavyasree1623
