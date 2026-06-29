@@ -297,7 +297,6 @@ All implementation decisions were reviewed, tested, and validated manually.
 ---
 
 ## 👩‍💻 Author
-
 Kavya Sree
 
 GitHub: https://github.com/kavyasree1623
